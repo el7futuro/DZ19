@@ -23,6 +23,7 @@ def register_extensions(app):
     api.add_namespace(movie_ns)
 
 
+
 app = create_app(Config())
 app.debug = True
 
