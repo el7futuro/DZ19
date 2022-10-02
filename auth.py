@@ -1,3 +1,5 @@
+import hashlib
+
 import jwt
 from flask import request, abort
 from flask_restx import Namespace, Resource
@@ -11,6 +13,8 @@ secret = Config.SECRET_HERE
 algo = 'HS256'
 
 auth_ns = Namespace('auth')
+
+
 
 def auth_required(func):
     def wrapper(*args, **kwargs):

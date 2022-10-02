@@ -10,13 +10,13 @@ director_ns = Namespace('directors')
 
 @director_ns.route('/')
 class DirectorsView(Resource):
-    @auth_required
+    # @auth_required
     def get(self):
         rs = db.session.query(Director).all()
         res = DirectorSchema(many=True).dump(rs)
         return res, 200
 
-    @admin_required
+    # @admin_required
     def post(self):
         req_json = request.json
         ent = Director(**req_json)
@@ -30,13 +30,13 @@ class DirectorsView(Resource):
 
 @director_ns.route('/<int:rid>')
 class DirectorView(Resource):
-    @auth_required
+    # @auth_required
     def get(self, rid):
         r = db.session.query(Director).get(rid)
         sm_d = DirectorSchema().dump(r)
         return sm_d, 200
 
-    @admin_required
+    # @admin_required
     def put(self, rid):
         director = db.session.query(Director).get(rid)
         req_json = request.json
@@ -45,7 +45,7 @@ class DirectorView(Resource):
         db.session.commit()
         return "", 204
 
-    @admin_required
+    # @admin_required
     def delete(self, rid):
         director = db.session.query(Director).get(rid)
 

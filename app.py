@@ -36,7 +36,7 @@ def register_extensions(app):
     api.add_namespace(movie_ns)
     api.add_namespace(user_ns)
     api.add_namespace(auth_ns)
-    create_data(app, db)
+    # create_data(app, db)
 
 
 
