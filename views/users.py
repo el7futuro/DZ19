@@ -8,8 +8,8 @@ from models import User, UserSchema
 from setup_db import db
 
 
-def get_hash(req_json):
-    return hashlib.md5(req_json.password.encode('utf-8')).hexdigest()
+def get_hash(password):
+    return hashlib.md5(password.encode('utf-8')).hexdigest()
 
 user_ns = Namespace('users')
 
@@ -26,9 +26,9 @@ class UsersView(Resource):
         # res = User(**req_json)
         print(type(req_json))
         req_json['password'] = get_hash(req_json['password'])
-        db.session.add(req_json)
+        db.session.add(User(**req_json))
         db.session.commit()
-        return "", 201, {"location": f"/users/{req_json.id}"}
+        return "", 201, {"location": f"/users/{req_json['id']}"}
 
 
 
