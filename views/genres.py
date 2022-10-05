@@ -19,11 +19,10 @@ class GenresView(Resource):
     @admin_required
     def post(self):
         req_json = request.json
-        ent = Genre(**req_json)
-
-        db.session.add(ent)
+        db.session.add(Genre(**req_json))
         db.session.commit()
-        return "", 201, {"location": f"/genre/{ent.id}"}
+        return "", 201, {"location": f"/genre/{req_json['id']}"}
+
 
 
 

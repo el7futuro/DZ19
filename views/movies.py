@@ -29,11 +29,9 @@ class MoviesView(Resource):
     @admin_required
     def post(self):
         req_json = request.json
-        ent = Movie(**req_json)
-
-        db.session.add(ent)
+        db.session.add(Movie(**req_json))
         db.session.commit()
-        return "", 201, {"location": f"/movies/{ent.id}"}
+        return "", 201, {"location": f"/movies/{req_json['id']}"}
 
 
 @movie_ns.route('/<int:bid>')
