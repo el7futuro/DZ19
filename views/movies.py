@@ -1,7 +1,7 @@
 from flask import request
 from flask_restx import Resource, Namespace
 
-from auth import admin_required, auth_required
+from views.auth import admin_required, auth_required
 from models import Movie, MovieSchema
 from setup_db import db
 

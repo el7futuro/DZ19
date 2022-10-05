@@ -3,13 +3,10 @@ import hashlib
 from flask import request
 from flask_restx import Resource, Namespace
 
-from auth import auth_required, admin_required
+from decor import get_hash, admin_required
 from models import User, UserSchema
 from setup_db import db
 
-
-def get_hash(password):
-    return hashlib.md5(password.encode('utf-8')).hexdigest()
 
 user_ns = Namespace('users')
 

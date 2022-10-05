@@ -31,6 +31,11 @@ Accept: application/json
 GET http://127.0.0.1:10001/genres/
 Accept: application/json
 
+{
+ "username": "vasya"
+ "password": "My_litle_pony"
+
+ }
 ###
 
 GET http://127.0.0.1:10001/genres/1

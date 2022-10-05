@@ -1,37 +1,21 @@
-import hashlib
+
 
 import jwt
 from flask import request, abort
 from flask_restx import Namespace, Resource
 import calendar
 import datetime
+
+import views
 from config import Config
 from models import User
 from setup_db import db
+
 
 secret = Config.SECRET_HERE
 algo = 'HS256'
 
 auth_ns = Namespace('auth')
-
-
-
-def auth_required(func):
-    def wrapper(*args, **kwargs):
-        if 'Authorization' not in request.headers:
-            abort(401)
-
-        data = request.headers['Authorization']
-        token = data.split("Bearer ")[-1]
-        try:
-            jwt.decode(token, secret, algorithms=[algo])
-        except Exception as e:
-            print("JWT Decode Exception", e)
-            abort(401)
-        return func(*args, **kwargs)
-
-    return wrapper
-
 
 
 @auth_ns.route('/')
@@ -48,7 +32,7 @@ class AuthView(Resource):
         if user is None:
             return {"error": "Неверные учётные данные"}, 401
 
-        password_hash = User.get_hash(self)
+        password_hash = views.users.get_hash(password)
 
         if password_hash != user.password:
             return {"error": "Неверные учётные данные"}, 401
@@ -96,21 +80,3 @@ class AuthView(Resource):
 
         return tokens, 201
 
-def admin_required(func):
-        def wrapper(*args, **kwargs):
-            if 'Authorization' not in request.headers:
-                abort(401)
-
-            data = request.headers['Authorization']
-            token = data.split("Bearer ")[-1]
-            try:
-                user = jwt.decode(token, secret, algorithms=[algo])
-                role = user.get("role")
-                if role != "admin":
-                    abort(400)
-            except Exception as e:
-                print("JWT Decode Exception", e)
-                abort(401)
-            return func(*args, **kwargs)
-
-        return wrapper

@@ -1,7 +1,7 @@
 from flask import request
 from flask_restx import Resource, Namespace
 
-from auth import auth_required, admin_required
+from views.auth import auth_required, admin_required
 from models import Genre, GenreSchema
 from setup_db import db
 

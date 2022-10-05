@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restx import Api
 
-from auth import auth_ns
+from views.auth import auth_ns
 from config import Config
 from models import User
 from setup_db import db
